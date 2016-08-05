@@ -12,7 +12,10 @@ module.exports = {
         MAIN_PATH: commonPagePath + '#main',
         MAIN_RECORD_PATH: commonPagePath + '#record',
         FIND_PATH: commonPagePath + '#find',
+        LISTS_PATH: commonPagePath + '#lists',
+        DETAIL_PATH: commonPagePath + '#details',
         MINE_PATH:commonPagePath + '#mine',
+        LOGIN_PATH: commonPagePath + '#login',
         COLLECT_PATH: commonPagePath + '#collect',
         SUGGESTION_PATH: commonPagePath + '#suggestion',
         SET_PATH: commonPagePath + '#set',
@@ -21,7 +24,11 @@ module.exports = {
     },
     API_URL: {
         MAINJSON_PATH: commonPagePath + '/data/main.json', //首页列表数据接口
-        BABYDETAIL_PATH: commonPagePath + '/data/babyDetail.json' //文章详情页数据接口
+        BABYDETAIL_PATH: commonPagePath + '/data/babyDetail.json', //文章详情页数据接口
+        BABYREG_PATH: commonPagePath + '/data/reg.json', //宝宝登记接口
+        CAT_PATH: commonPagePath + '/data/cat.json', //宝宝知道分类头部导航接口
+        CATLIST_PATH: commonPagePath + '/data/catlist.json', //宝宝知道文章列表接口
+        FAV_PATH: commonPagePath + '/data/fav.json' //文章收藏接口
     },
     DATE: '?date=2016072101'// +Math.random().toString().replace('.', '')
 };

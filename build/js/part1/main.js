@@ -56,7 +56,7 @@ var main = (function() {
 
         var baby_id = cookie.getItem('baby_id');
         $('#more').on('click',function goToListClickHandle(){
-            location.href = config.PAGE_URL.FIND_PATH + '/0';
+            location.href = config.PAGE_URL.LISTS_PATH + '/0';
         })
 
     };
@@ -66,7 +66,7 @@ var main = (function() {
 
         $('.list-content').on('click',function(){
             var $this = $(this);
-            location.href = config.PAGE_URL.FIND_PATH + '/0/1?id=' + $this.data('id');
+            location.href = config.PAGE_URL.DETAIL_PATH + '/0/' + $this.data('id');
         })
 
     };

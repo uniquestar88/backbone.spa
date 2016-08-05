@@ -20,9 +20,9 @@ var find = (function() {
         $('.find-lists ul li').on('click',function goToClickHandle(){
             var $this = $(this);
             if($this.data('id') == 0){
-                location.href = config.PAGE_URL.FIND_PATH + '/0';
+                location.href = config.PAGE_URL.LISTS_PATH + '/0';
             }else if($this.data('id') == 1){
-                location.href = config.PAGE_URL.FIND_PATH + '/1';
+                location.href = config.PAGE_URL.LISTS_PATH + '/1';
             }
         })
     };

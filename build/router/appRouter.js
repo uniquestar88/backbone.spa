@@ -11,16 +11,16 @@ module.exports = Backbone.Router.extend({    //创建路由
     routes: {
         "index": "indexAction",
         "init": "initAction",
-        "init/:birthday": "initGenderAction",
+        "gender/:birth": "initGenderAction",
         "main": "indexAction",
         "record": "recordAction",
         "find": "findAction",
-        "find/:lists": "listsAction",
-        "find/:lists/:details": "detailsAction",
+        "lists/:id": "listsAction",
+        "details/:lists/:details": "detailsAction",
         "mine": "mineAction",
         "login": "loginAction",
-        "login/:name/:phone": "setPasswordAction",
-        "findPassword": "findPasswordAction",
+        "setPwd/:name/:phone": "setPasswordAction",
+        "findPwd": "findPasswordAction",
         "collect": "collectAction",
         "set": "setAction",
         "suggestion": "suggestionAction",
@@ -52,23 +52,27 @@ module.exports = Backbone.Router.extend({    //创建路由
         var initPage =  require('../views/init/init.html'),
             initCss = require('../less/init/init.less'),
             merge = mergeHtmlAndCss(initCss, initPage);
-        $('body').html( merge ).addClass('animated fadeIn');
-
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').hide();
+        $('#page-main-container').hide();
         //js
         var init = require('../js/init/init.js');
         init.onLoad();
 
     },
 
-    initGenderAction: function () {
+    initGenderAction: function ( birth ) {
 
         var genderPage =  require('../views/init/gender.html'),
             genderCss = require('../less/init/gender.less'),
             merge = mergeHtmlAndCss(genderCss, genderPage);
-        $('body').html( merge ).addClass('animated fadeIn');
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').hide();
+        $('#page-main-container').hide();
 
         var gender = require('../js/init/gender.js');
-        gender.onLoad();
+        gender.onLoad( birth );
+
     },
 
     recordAction: function () {
@@ -98,11 +102,11 @@ module.exports = Backbone.Router.extend({    //创建路由
     },
 
     listsAction: function (id) {
-
+        var merge = '';
         if(id == 0){
             var babyKnowPage =  require('../views/part2/babyKnow.html'),
-                babyKnowCss = require('../less/part2/babyKnow.less'),
-                merge = mergeHtmlAndCss(babyKnowCss, babyKnowPage);
+                babyKnowCss = require('../less/part2/babyKnow.less');
+            merge = mergeHtmlAndCss(babyKnowCss, babyKnowPage);
 
             $('#page-full').html( merge ).addClass('animated fadeIn').show();
             $('#page-menu').hide();
@@ -114,8 +118,8 @@ module.exports = Backbone.Router.extend({    //创建路由
         }else if(id == 1){
 
             var coursePage =  require('../views/part2/course.html'),
-                courseCss = require('../less/part2/course.less'),
-                merge = mergeHtmlAndCss(courseCss, coursePage);
+                courseCss = require('../less/part2/course.less');
+            merge = mergeHtmlAndCss(courseCss, coursePage);
 
             $('#page-full').html( merge ).addClass('animated fadeIn').show();
             $('#page-menu').hide();
@@ -128,23 +132,24 @@ module.exports = Backbone.Router.extend({    //创建路由
     },
 
     detailsAction: function (id,detailId) {
+        var merge = '';
         if( id == 0 ){
             var babyDetailPage =  require('../views/part2/babyDetail.html'),
-                babyDetailCss = require('../less/part2/babyDetail.less'),
-                merge = mergeHtmlAndCss(babyDetailCss, babyDetailPage);
+                babyDetailCss = require('../less/part2/babyDetail.less');
+            merge = mergeHtmlAndCss(babyDetailCss, babyDetailPage);
 
             $('#page-full').html( merge ).addClass('animated fadeIn').show();
             $('#page-menu').hide();
             $('#page-main-container').hide();
 
             var babyDetail = require('../js/part2/babyDetail.js');
-            babyDetail.onLoad();
+            babyDetail.onLoad( detailId );
 
         }else if ( id == 1 ){
 
             var courseDetailPage =  require('../views/part2/courseDetail.html'),
-                courseDetailCss = require('../less/part2/courseDetail.less'),
-                merge = mergeHtmlAndCss(courseDetailCss, courseDetailPage);
+                courseDetailCss = require('../less/part2/courseDetail.less');
+            merge = mergeHtmlAndCss(courseDetailCss, courseDetailPage);
 
             $('#page-full').html( merge ).addClass('animated fadeIn').show();
             $('#page-menu').hide();

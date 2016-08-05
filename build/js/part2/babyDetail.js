@@ -1,14 +1,15 @@
 
-var config = require('../common/config');
+var config = require('../common/config'),
+    cookie = require('../common/commonCookie');
 
 var babyDetail = (function() {
 
     var BabyDetail = function() {},
         fn = BabyDetail.prototype;
 
-    fn.onLoad = function () {
+    fn.onLoad = function ( detailId ) {
         this.renderLoading();
-        this.getData();
+        this.getData( detailId );
         this.events();
     };
 
@@ -22,28 +23,15 @@ var babyDetail = (function() {
         this.loadTpl($('#loading-tpl'),$('#loading'),this.data);
     };
 
-    /*获取链接上的参数*/
-    fn.getQueryFromUrl = function(key){
-        var search = location.search,
-            obj = {};
-        search = decodeURIComponent( search.substring(1) );
-        var arr = search.split('&'),
-            len = arr.length,
-            i;
-        if( len > 0 ) {
-            for( i = 0; i < len; i ++ ) {
-                var subArr = arr[i].split('=');
-                obj[subArr[0]] = subArr[1];
-            }
-        }
-        return obj[key];
-    };
-
     /*请求文章数据*/
-    fn.getData = function () {
-        var that = this;
+    fn.getData = function ( detailId ) {
+        var that = this,
+            data = {
+                id: detailId
+            };
         $.ajax({
             type: 'GET',
+            data: data,
             url: config.API_URL.BABYDETAIL_PATH,
             dataType: 'json',
             success: function(data){
@@ -62,47 +50,67 @@ var babyDetail = (function() {
     fn.eventCollectClick = function(){
         var that = this,
             $keep = $('.keep-box');
+        console.log(this.data.contentData.isFavorite);
         if(this.data.contentData.isFavorite){
             $keep.addClass('active');
             $keep.find('span').html("已收藏");
+        }else{
+            $keep.removeClass('active');
+            $keep.find('span').html("收藏");
         }
-        $keep.on('click', function () {
+        $keep.off('click').on('click', function () {
             var $this = $(this),
-                id = that.getQueryFromUrl('id');//文章id
-            if($this.hasClass('active')){
-                $this.removeClass('active');
-                $keep.find('span').html("收藏");
-                //todo ajax
-                /*$.ajax({
-                    type: 'GET',
-                    url: config.API_URL.BABYDETAIL_PATH,
-                    dataType: 'json',
-                    success: function(data){
-                        that.data.contentData = data;
-                        that.renderPage();
-                        that.eventCollectClick();
-                    },
-                    error: function(xhr, type){
-                        alert('Ajax error!')
-                    }
-                });*/
-            }else{
-                $this.addClass('active');
-                $keep.find('span').html("已收藏");
-                //todo ajax
-                /*$.ajax({
-                 type: 'GET',
-                 url: config.API_URL.BABYDETAIL_PATH,
-                 dataType: 'json',
-                 success: function(data){
-                 that.data.contentData = data;
-                 that.renderPage();
-                 that.eventCollectClick();
-                 },
-                 error: function(xhr, type){
-                 alert('Ajax error!')
-                 }
-                 });*/
+                id = that.data.contentData.id,  //文章id
+                userid = 'wang';
+                //userid = cookie.getItem('userid');
+                data = {
+                    id:id,
+                    userid:userid
+                };
+            if(!userid){
+                location.href = config.PAGE_URL.LOGIN_PATH;
+            }else {
+                if ($this.hasClass('active')) {
+                    $this.removeClass('active');
+                    $keep.find('span').html("收藏");
+                    that.data.contentData.isFavorite = 0;
+                    //ajax取消收藏
+                    console.log(data, 'mei');
+                    $.ajax({
+                        type: 'GET',
+                        data: data,
+                        url: config.API_URL.BABYDETAIL_PATH,
+                        dataType: 'json',
+                        success: function (data) {
+                            that.data.contentData = data;
+                            that.renderPage();
+                            that.eventCollectClick();
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!')
+                        }
+                    });
+                } else {
+                    $this.addClass('active');
+                    $keep.find('span').html("已收藏");
+                    that.data.contentData.isFavorite = 1;
+                    //ajax收藏
+                    console.log(data, 'shou');
+                    $.ajax({
+                        type: 'GET',
+                        data: data,
+                        url: config.API_URL.BABYDETAIL_PATH,
+                        dataType: 'json',
+                        success: function (data) {
+                            that.data.contentData = data;
+                            that.renderPage();
+                            that.eventCollectClick();
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!')
+                        }
+                    });
+                }
             }
         })
     };

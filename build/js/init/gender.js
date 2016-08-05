@@ -9,72 +9,55 @@ var gender = (function() {
     var Gender = function() {},
         fn = Gender.prototype;
 
-    fn.onLoad = function(){
-        this.events();
+    fn.onLoad = function( birth ){
+        this.events( birth );
     };
 
     fn.data = {
-
+        sex:1
     };
 
-    fn.events = function(){
+    fn.events = function( birth ){
         this.eventGoNextOrPreClick();
         this.eventSelectSexClick();
-        this.eventSubmitClick();
-    };
-
-    /*获取链接上的参数*/
-    fn.getQueryFromUrl = function(key){
-        var search = location.search,
-            obj = {};
-        search = decodeURIComponent( search.substring(1) );
-        var arr = search.split('&'),
-            len = arr.length,
-            i;
-        if( len > 0 ) {
-            for( i = 0; i < len; i ++ ) {
-                var subArr = arr[i].split('=');
-                obj[subArr[0]] = subArr[1];
-            }
-        }
-        return obj[key];
+        this.eventSubmitClick( birth );
     };
 
     /*点击完成保存baby_id到cookie*/
-    fn.eventSubmitClick = function(){
+    fn.eventSubmitClick = function( birth ){
+
         var that = this;
         $('#next-btn').on('click',function(){
-            var data = {
-                sex:1
-            };
-            /*console.log(that.getQueryFromUrl('birth'));
-            console.log(location.search);*/
-            data.birth = that.getQueryFromUrl('birth');
-            data.sex = that.data.gender;
-            console.log(data);
+            var data = {};
+            data.birth = birth;
+            data.sex = that.data.sex;
             $.ajax({
                 type: 'POST',
-                url: config.API_URL.BABYDETAIL_PATH,
+                url: config.API_URL.BABYREG_PATH,
                 data:data,
                 dataType: 'json',
                 success: function(data){
                     cookie.setItem('baby_id',data.baby_id);
+                    location.href = config.PAGE_URL.MAIN_PATH;
                 },
                 error: function(xhr, type){
                     alert('Ajax error!')
                 }
             });
         })
+
     };
 
     /*选择性别*/
     fn.eventSelectSexClick = function () {
+
         var that = this;
         $('#select-sex').find('li').on('click', function () {
             var $this = $(this);
             $this.addClass('active').siblings('li').removeClass('active');
-            that.data.gender = $this.data('id');
+            that.data.sex = $this.data('id');
         });
+
     };
 
     /*点击返回上一步*/
