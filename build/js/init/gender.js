@@ -20,8 +20,9 @@ var gender = (function() {
     fn.events = function( birth ){
         this.eventGoNextOrPreClick();
         this.eventSelectSexClick();
-        this.eventSubmitClick( birth );
+        this.eventSubmitClick();
     };
+
 
     /*点击完成保存baby_id到cookie*/
     fn.eventSubmitClick = function( birth ){
