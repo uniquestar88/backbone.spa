@@ -82,7 +82,6 @@ var login = (function() {
             username: tel,
             password: pwd
         };
-        //console.log(data);
         $.ajax({
             type: 'GET',
             data: data,
