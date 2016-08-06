@@ -16,6 +16,7 @@ module.exports = {
         DETAIL_PATH: commonPagePath + '#details',
         MINE_PATH:commonPagePath + '#mine',
         LOGIN_PATH: commonPagePath + '#login',
+        SETPWD_PATH: commonPagePath + '#setPwd',
         COLLECT_PATH: commonPagePath + '#collect',
         SUGGESTION_PATH: commonPagePath + '#suggestion',
         SET_PATH: commonPagePath + '#set',
@@ -28,7 +29,9 @@ module.exports = {
         BABYREG_PATH: commonPagePath + '/data/reg.json', //宝宝登记接口
         CAT_PATH: commonPagePath + '/data/cat.json', //宝宝知道分类头部导航接口
         CATLIST_PATH: commonPagePath + '/data/catlist.json', //宝宝知道文章列表接口
-        FAV_PATH: commonPagePath + '/data/fav.json' //文章收藏接口
+        FAV_PATH: commonPagePath + '/data/fav.json', //文章收藏接口
+        LOGIN_PATH: commonPagePath + '/data/signin.json', //用户登录接口
+        AUTHCODE_PATH:commonPagePath + '/data/authcode.json' //获取验证码
     },
     DATE: '?date=2016072101'// +Math.random().toString().replace('.', '')
 };

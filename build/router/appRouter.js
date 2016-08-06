@@ -184,7 +184,7 @@ module.exports = Backbone.Router.extend({    //创建路由
         login.onLoad();
     },
 
-    setPasswordAction:function(){
+    setPasswordAction:function( tel,code ){
         var setPasswordPage =  require('../views/part3/setPassword.html'),
             setPasswordCss = require('../less/part3/setPassword.less'),
             merge = mergeHtmlAndCss(setPasswordCss, setPasswordPage);
@@ -193,8 +193,8 @@ module.exports = Backbone.Router.extend({    //创建路由
         $('#page-main-container').hide();
         $('#page-menu').hide();
 
-        /*var setPassword = require('../js/part3/setPassword.js');
-        setPassword.onLoad();*/
+        var setPassword = require('../js/part3/setPassword.js');
+        setPassword.onLoad( tel,code );
     },
 
     findPasswordAction:function(){

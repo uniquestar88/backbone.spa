@@ -1,5 +1,6 @@
 
-var config = require('../common/config');
+var config = require('../common/config'),
+    toottips = require('../common/toolTips');
 
 var mine = (function() {
 
@@ -26,10 +27,7 @@ var mine = (function() {
     fn.eventShowPopupClick = function () {
 
         $('.mine-info').on('click',function showPopupClickHandle(){
-            $('.popup').show();
-            setTimeout(function(){
-                $('.popup').hide();
-            },3000);
+            toottips.show( '升级中，敬请期待！',3000 );
         })
 
     };

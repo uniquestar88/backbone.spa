@@ -37,8 +37,8 @@ var babyDetail = (function() {
             success: function(data){
                 that.data.contentData = data;
                 that.renderPage();
-                that.eventCollectClick();
                 $('#ajax-loading').hide();
+                that.eventCollectClick();
             },
             error: function(xhr, type){
                 alert('Ajax error!')
@@ -50,19 +50,16 @@ var babyDetail = (function() {
     fn.eventCollectClick = function(){
         var that = this,
             $keep = $('.keep-box');
-        console.log(this.data.contentData.isFavorite);
+
         if(this.data.contentData.isFavorite){
             $keep.addClass('active');
             $keep.find('span').html("已收藏");
-        }else{
-            $keep.removeClass('active');
-            $keep.find('span').html("收藏");
         }
+
         $keep.off('click').on('click', function () {
             var $this = $(this),
                 id = that.data.contentData.id,  //文章id
-                userid = 'wang';
-                //userid = cookie.getItem('userid');
+                userid = cookie.getItem('user_id'); //从cookie获取用户id
                 data = {
                     id:id,
                     userid:userid
@@ -75,7 +72,6 @@ var babyDetail = (function() {
                     $keep.find('span').html("收藏");
                     that.data.contentData.isFavorite = 0;
                     //ajax取消收藏
-                    console.log(data, 'mei');
                     $.ajax({
                         type: 'GET',
                         data: data,
@@ -95,7 +91,6 @@ var babyDetail = (function() {
                     $keep.find('span').html("已收藏");
                     that.data.contentData.isFavorite = 1;
                     //ajax收藏
-                    console.log(data, 'shou');
                     $.ajax({
                         type: 'GET',
                         data: data,
