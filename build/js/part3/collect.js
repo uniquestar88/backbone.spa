@@ -34,12 +34,21 @@ var collect = (function() {
             dataType: 'json',
             success: function (data) {
                 that.data.listData = data;
-                that.loadTpl($('#collect-tpl'),$('#collect'),that.data)
+                that.loadTpl($('#collect-tpl'),$('#collect'),that.data);
+                that.eventGoToDetailClick();
             },
             error: function (xhr, type) {
                 alert('Ajax error!')
             }
         });
+    };
+
+    //点击跳转到详情页
+    fn.eventGoToDetailClick = function(){
+        $('.babyKnow-lists li').on('click', function goToDetailClickHandle() {
+            var $this = $(this);
+            location.href = config.PAGE_URL.DETAIL_PATH + '/0/' + $this.data('id');
+        })
     };
 
     //点击返回

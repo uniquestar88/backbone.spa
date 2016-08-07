@@ -25,10 +25,11 @@ module.exports = {
     },
     API_URL: {
         MAINJSON_PATH: commonPagePath + '/data/main.json', //首页列表数据接口
-        BABYDETAIL_PATH: commonPagePath + '/data/babyDetail.json', //文章详情页数据接口
         BABYREG_PATH: commonPagePath + '/data/reg.json', //宝宝登记接口
         CAT_PATH: commonPagePath + '/data/cat.json', //宝宝知道分类头部导航接口
         CATLIST_PATH: commonPagePath + '/data/catlist.json', //宝宝知道文章列表接口
+        BABYDETAIL_PATH: commonPagePath + '/data/babyDetail.json', //文章详情页数据接口
+        COURSELIST_PATH: commonPagePath + '/data/list.json/', //课程列表接口
         FAV_PATH: commonPagePath + '/data/fav.json', //文章收藏接口
         LOGIN_PATH: commonPagePath + '/data/signin.json', //用户登录接口
         MEMBERREG_PAT: commonPagePath + '/data/memberReg.json', //用户注册接口
