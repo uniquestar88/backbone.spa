@@ -28,18 +28,22 @@ var config = {
             {
                 test: /\.less$/,
                 loader: 'css-to-string-loader!css-loader!less-loader'
+            },
+            {
+                test: /(.png)|(.jpg)|(.jpeg)|(.gif)$/,
+                loader: 'url-loader'
             }
         ]
     },
     resolve: {
-      extensions: ['', '.js', '.less']
+      extensions: ['', '.js', '.less', '.jpg', '.jpeg', '.png', '.gif']
     },
     externals: [
         {
             "zepto": "$"
         },
         {
-        "underscore": "_"
+            "underscore": "_"
         },
         {
             "backbone": "Backbone"
@@ -55,7 +59,8 @@ var config = {
             filename: 'index.html',
             template: path.resolve(__dirname, 'build/template.html')
         })
-    ]
+    ],
+    watch:true
 };
 
 var UglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({

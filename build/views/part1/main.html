@@ -1,0 +1,109 @@
+<div id="main"></div>
+<script id="main-tpl" type="x-tmpl-mustache">
+<div class="main">
+    <header class="main-title clear">
+        <!--<div class="left">
+            <span>今天</span>
+        </div>-->
+        <!--<div class="right">
+            <img src="{{IMG_PATH}}main_icon_msg.png{{DATE}}" />
+        </div>-->
+        <div class="date">
+            <i class="pre"></i>
+            <span>12月12日</span>
+            <i class="next"></i>
+        </div>
+    </header>
+    <section class="info">
+        <div class="how-old">
+            <p>一个月6天</p>
+        </div>
+        <div class="base-info clear">
+            <div class="left avatar">
+                <img id="avatar" src="{{IMG_PATH}}main_avatar.png{{DATE}}" />
+                <i>
+                    <img src="{{IMG_PATH}}main_icon_photo.png{{DATE}}" />
+                </i>
+                <div class="get-photo">
+                    <input type="file" name="photo" id="photp" />
+                </div>
+            </div>
+            <div class="auto">
+                <div class="info-data">
+                    <div class=label>
+                        <i>
+                            <img src="{{IMG_PATH}}main_icon_tall.png{{DATE}}" />
+                        </i>
+                        <span>身高</span>
+                    </div>
+                    <p>48.0-51.8cm</p>
+                </div>
+                <div class="info-data">
+                    <div class=label>
+                        <i>
+                            <img src="{{IMG_PATH}}main_icon_weight.png{{DATE}}" />
+                        </i>
+                        <span>体重</span>
+                    </div>
+                    <p>2.9-3.9kg</p>
+                </div>
+            </div>
+        </div>
+        <div class="desc">
+            <p>我出生了！如果是男宝宝，高48.0-51.8厘米、重2.9-3.9千克；如果是女宝宝，高47.3-51.0厘米、重2.8-3.7千克。</p>
+        </div>
+    </section>
+    <section class="today-msg">
+        <h4 class="today-title">
+            <span>今日提醒</span>
+            <i>
+                <img src="/backbone.spa/images/main_index.png{{DATE}}" />
+            </i>
+        </h4>
+        <div class="today-list clear">
+            <div class="left">
+                <img src="{{IMG_PATH}}main_todaycontent.png{{DATE}}" />
+            </div>
+            <div class="auto">
+                <h5>宝宝身高体重记录</h5>
+                <p>记录宝宝第一周身高体重变化</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="baby-know">
+        <header class="clear">
+            <div class="left">
+                宝宝知道
+            </div>
+            <div class="right" id="more">
+                更多
+            </div>
+        </header>
+        <ul>
+            {{#contentLists}}
+            <li>
+                <div class="list-title clear">
+                    <div class="left">
+                        <img src="{{caticon}}" />
+                    </div>
+                    <div class="auto">
+                        <h4>{{catname}}</h4>
+                    </div>
+                </div>
+                <div class="list-content clear" data-id="{{content.id}}">
+                    <div class="left">
+                        <img src="{{content.pic}}" />
+                    </div>
+                    <div class="auto">
+                        <h5>{{content.title}}</h5>
+                        <p>{{content.desc}}</p>
+                    </div>
+                </div>
+            </li>
+            {{/contentLists}}
+        </ul>
+    </section>
+</div>
+</script>
+

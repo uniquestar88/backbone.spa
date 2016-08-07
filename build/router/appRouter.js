@@ -9,42 +9,284 @@ var mergeHtmlAndCss = function( css, html) {
 module.exports = Backbone.Router.extend({    //创建路由
 
     routes: {
-        "": "indexAction",
-        "teams": "getTeamsAction",
-        "teams/:country": "getTeamsCountryAction",
-        "teams/:country/:name": "getTeamAction",
-        "error": "fourOfOurAction"
+        "index": "indexAction",
+        "init": "initAction",
+        "gender/:birth": "initGenderAction",
+        "main": "indexAction",
+        "record": "recordAction",
+        "find": "findAction",
+        "lists/:id": "listsAction",
+        "details/:lists/:details": "detailsAction",
+        "mine": "mineAction",
+        "login": "loginAction",
+        "setPwd/:name/:phone": "setPasswordAction",
+        "findPwd": "findPasswordAction",
+        "collect": "collectAction",
+        "set": "setAction",
+        "suggestion": "suggestionAction",
+        "provision": "provisionAction",
+        "aboutUs": "aboutUsAction",
+        "error": "fourOFourAction"
     },
 
     indexAction: function() {
 
         //html,css
-        var module1Page =  require('../views/part1/module1.html'),
-            module1Css = require('../less/index/module1.less'),
-            merge = mergeHtmlAndCss(module1Css, module1Page);
-        $('body').addClass('animated fadeIn').html( merge );
+        var mainPage =  require('../views/part1/main.html'),
+            mainCss = require('../less/part1/main.less'),
+            merge = mergeHtmlAndCss(mainCss, mainPage);
+
+        $('#page-main-container').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').show();
+        $('#page-full').hide();
 
         //js
-        var module1 = require('../js/index/module1.js');
-        module1.onLoad();
+        var main = require('../js/part1/main.js');
+        main.onLoad();
 
     },
 
-    getTeamsAction: function() {
-        var module2 = require('../views/part1/module2.html');
-        $('body').addClass('animated fadeIn').html( module2 );
+    initAction: function () {
+
+        //html,css
+        var initPage =  require('../views/init/init.html'),
+            initCss = require('../less/init/init.less'),
+            merge = mergeHtmlAndCss(initCss, initPage);
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').hide();
+        $('#page-main-container').hide();
+        //js
+        var init = require('../js/init/init.js');
+        init.onLoad();
+
     },
 
-    getTeamsCountryAction: function(a, b, c) {    console.log('a:', a, ',b:', b, ',c:', c);
-        console.log('i will get all countries!');
+    initGenderAction: function ( birth ) {
+
+        var genderPage =  require('../views/init/gender.html'),
+            genderCss = require('../less/init/gender.less'),
+            merge = mergeHtmlAndCss(genderCss, genderPage);
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').hide();
+        $('#page-main-container').hide();
+
+        var gender = require('../js/init/gender.js');
+        gender.onLoad( birth );
+
     },
 
-    getTeamAction: function(a, b, c) {    console.log('a:', a, ',b:', b, ',c:', c);
-        console.log('get team!');
+    recordAction: function () {
+
+        var recordPage =  require('../views/part1/record.html'),
+            recordCss = require('../less/part1/record.less'),
+            merge = mergeHtmlAndCss(recordCss, recordPage);
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var record = require('../js/part1/record.js');
+        record.onLoad();
     },
 
-    fourOfOurAction: function() {    console.log( 'error' );
-        //404 page
+    findAction: function () {
+        var findPage =  require('../views/part2/find.html'),
+            findCss = require('../less/part2/find.less'),
+            merge = mergeHtmlAndCss(findCss, findPage);
+
+        $('#page-main-container').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').show();
+        $('#page-full').hide();
+
+        var find = require('../js/part2/find.js');
+        find.onLoad();
+    },
+
+    listsAction: function (id) {
+        var merge = '';
+        if(id == 0){
+            var babyKnowPage =  require('../views/part2/babyKnow.html'),
+                babyKnowCss = require('../less/part2/babyKnow.less');
+            merge = mergeHtmlAndCss(babyKnowCss, babyKnowPage);
+
+            $('#page-full').html( merge ).addClass('animated fadeIn').show();
+            $('#page-menu').hide();
+            $('#page-main-container').hide();
+
+            var babyKnow = require('../js/part2/babyKnow.js');
+            babyKnow.onLoad();
+
+        }else if(id == 1){
+
+            var coursePage =  require('../views/part2/course.html'),
+                courseCss = require('../less/part2/course.less');
+            merge = mergeHtmlAndCss(courseCss, coursePage);
+
+            $('#page-full').html( merge ).addClass('animated fadeIn').show();
+            $('#page-menu').hide();
+            $('#page-main-container').hide();
+
+            var course = require('../js/part2/course.js');
+            course.onLoad();
+        }
+
+    },
+
+    detailsAction: function (id,detailId) {
+        var merge = '';
+        if( id == 0 ){
+            var babyDetailPage =  require('../views/part2/babyDetail.html'),
+                babyDetailCss = require('../less/part2/babyDetail.less');
+            merge = mergeHtmlAndCss(babyDetailCss, babyDetailPage);
+
+            $('#page-full').html( merge ).addClass('animated fadeIn').show();
+            $('#page-menu').hide();
+            $('#page-main-container').hide();
+
+            var babyDetail = require('../js/part2/babyDetail.js');
+            babyDetail.onLoad( detailId );
+
+        }else if ( id == 1 ){
+
+            var courseDetailPage =  require('../views/part2/courseDetail.html'),
+                courseDetailCss = require('../less/part2/courseDetail.less');
+            merge = mergeHtmlAndCss(courseDetailCss, courseDetailPage);
+
+            $('#page-full').html( merge ).addClass('animated fadeIn').show();
+            $('#page-menu').hide();
+            $('#page-main-container').hide();
+
+        }
+    },
+
+    mineAction:function(){
+        var minePage =  require('../views/part3/mine.html'),
+            mineCss = require('../less/part3/mine.less'),
+            merge = mergeHtmlAndCss(mineCss, minePage);
+
+        $('#page-main-container').html( merge ).addClass('animated fadeIn').show();
+        $('#page-menu').show();
+        $('#page-full').hide();
+
+        var mine = require('../js/part3/mine.js');
+        mine.onLoad();
+    },
+
+    loginAction:function(){
+        var loginPage =  require('../views/part3/login.html'),
+            loginCss = require('../less/part3/login.less'),
+            merge = mergeHtmlAndCss(loginCss, loginPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var login = require('../js/part3/login.js');
+        login.onLoad();
+    },
+
+    setPasswordAction:function( tel,code ){
+        var setPasswordPage =  require('../views/part3/setPassword.html'),
+            setPasswordCss = require('../less/part3/setPassword.less'),
+            merge = mergeHtmlAndCss(setPasswordCss, setPasswordPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var setPassword = require('../js/part3/setPassword.js');
+        setPassword.onLoad( tel,code );
+    },
+
+    findPasswordAction:function(){
+        var findPasswordPage =  require('../views/part3/findPassword.html'),
+            findPasswordCss = require('../less/part3/setPassword.less'),
+            merge = mergeHtmlAndCss(findPasswordCss, findPasswordPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        /*var setPassword = require('../js/part3/setPassword.js');
+         setPassword.onLoad();*/
+    },
+
+    collectAction:function(){
+        var collectPage =  require('../views/part3/collect.html'),
+            collectCss = require('../less/part3/collect.less'),
+            merge = mergeHtmlAndCss(collectCss, collectPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var collect = require('../js/part3/collect.js');
+        collect.onLoad();
+    },
+
+    setAction: function () {
+        var setPage =  require('../views/part3/set.html'),
+            setCss = require('../less/part3/set.less'),
+            merge = mergeHtmlAndCss(setCss, setPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var set = require('../js/part3/set.js');
+         set.onLoad();
+    },
+
+    suggestionAction: function(){
+
+        var suggestionPage =  require('../views/part3/suggestion.html'),
+            suggestionCss = require('../less/part3/suggestion.less'),
+            merge = mergeHtmlAndCss(suggestionCss, suggestionPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var suggestion = require('../js/part3/suggestion.js');
+         suggestion.onLoad();
+
+    },
+
+    provisionAction: function(){
+
+        var provisionPage =  require('../views/part3/provision.html'),
+            provisionCss = require('../less/part3/provision.less'),
+            merge = mergeHtmlAndCss(provisionCss, provisionPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var provision = require('../js/part3/provision.js');
+        provision.onLoad();
+
+    },
+
+    aboutUsAction: function () {
+        var provisionPage =  require('../views/part3/aboutUs.html'),
+            provisionCss = require('../less/part3/provision.less'),
+            merge = mergeHtmlAndCss(provisionCss, provisionPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
+
+        var provision = require('../js/part3/provision.js');
+        provision.onLoad();
+    },
+
+    fourOFourAction: function() {
+        var fourOFourPage =  require('../views/error/404.html'),
+            fourOFourCss = require('../less/error/404.less'),
+            merge = mergeHtmlAndCss(fourOFourCss, fourOFourPage);
+
+        $('#page-full').html( merge ).addClass('animated fadeIn').show();
+        $('#page-main-container').hide();
+        $('#page-menu').hide();
     }
 
 });

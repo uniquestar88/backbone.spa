@@ -1,0 +1,29 @@
+<div id="collect"></div>
+<script id="collect-tpl" type="x-tmpl-mustache">
+    <div class="collect">
+        <header class="common-subhead">
+            <h4>
+                <i id="back"></i>
+                我的收藏
+            </h4>
+        </header>
+        <section class="babyKnow-lists">
+            <ul>
+                {{#listData}}
+                <li data-id="{{id}}">
+                    <div class="lists-content clear">
+                        <div class="left">
+                            <img src="{{pic}}" />
+                        </div>
+                        <div class="auto">
+                            <h4>{{title}}</h4>
+                            <p>{{desc}}</p>
+                        </div>
+                    </div>
+
+                </li>
+                {{/listData}}
+            </ul>
+        </section>
+    </div>
+</script>

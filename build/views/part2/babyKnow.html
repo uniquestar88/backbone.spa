@@ -1,0 +1,29 @@
+<div id="babyKnow"></div>
+<div class="babyKnow">
+    <header class="common-subhead">
+        <h4>
+            <i id="back"></i>
+            宝宝知道
+        </h4>
+    </header>
+
+    <div id="swiper"></div>
+    <script id="swiper-tpl" type="x-tmpl-mustache">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#catData}}
+                    <div class="swiper-slide" data-id="{{id}}" data-catid="{{catid}}">
+                        <span>{{catname}}</span>
+                    </div>
+                {{/catData}}
+            </div>
+        </div>
+    </script>
+
+    <section class="babyKnow-lists">
+        <ul>
+
+        </ul>
+    </section>
+</div>
