@@ -31,7 +31,9 @@ module.exports = {
         CATLIST_PATH: commonPagePath + '/data/catlist.json', //宝宝知道文章列表接口
         FAV_PATH: commonPagePath + '/data/fav.json', //文章收藏接口
         LOGIN_PATH: commonPagePath + '/data/signin.json', //用户登录接口
-        AUTHCODE_PATH:commonPagePath + '/data/authcode.json' //获取验证码
+        MEMBERREG_PAT: commonPagePath + '/data/memberReg.json', //用户注册接口
+        AUTHCODE_PATH:commonPagePath + '/data/authcode.json', //获取验证码
+        FAVLIST_PATH: commonPagePath + '/data/favlist.json' //我的收藏接口
     },
-    DATE: '?date=2016072101'// +Math.random().toString().replace('.', '')
+    DATE: '?date=2016072101'
 };

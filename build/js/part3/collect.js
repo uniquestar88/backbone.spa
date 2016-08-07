@@ -1,5 +1,6 @@
 
-var config = require('../common/config');
+var config = require('../common/config'),
+    cookie = require('../common/commonCookie');
 
 var collect = (function() {
 
@@ -7,17 +8,38 @@ var collect = (function() {
         fn = Collect.prototype;
 
     fn.onLoad = function () {
-        this.renderPage();
+        this.getData();
         this.events();
     };
 
     fn.data = {
-        IMG_PATH: config.IMG_PATH,
-        DATE:config.DATE
+
     };
 
     fn.events = function(){
         this.eventGoToBackClick();
+    };
+
+    //获取收藏数据
+    fn.getData = function(){
+        var that = this,
+            user_id = cookie.getItem('user_id'),
+            data = {
+                userid: user_id
+            };
+        $.ajax({
+            type: 'GET',
+            data: data,
+            url: config.API_URL.FAVLIST_PATH,
+            dataType: 'json',
+            success: function (data) {
+                that.data.listData = data;
+                that.loadTpl($('#collect-tpl'),$('#collect'),that.data)
+            },
+            error: function (xhr, type) {
+                alert('Ajax error!')
+            }
+        });
     };
 
     //点击返回
@@ -26,12 +48,6 @@ var collect = (function() {
         $('#back').on('click',function goToBackClickHandle(){
             history.back();
         })
-
-    };
-
-    fn.renderPage = function () {
-
-        this.loadTpl($('#collect-tpl'),$('#collect'),this.data)
 
     };
 

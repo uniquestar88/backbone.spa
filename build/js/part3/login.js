@@ -133,7 +133,6 @@ var login = (function() {
                 data = {
                     mobile: tel
                 };
-            console.log(tel);
             if( $.trim(tel) == '' || !that.isCellPhone(tel) ){
                 tooltips.show( '请输入正确的手机号码！',1000 );
                 return false;

@@ -1,5 +1,6 @@
 
 var config = require('../common/config'),
+    cookie = require('../common/commonCookie'),
     tooltips = require('../common/toolTips');
 
 var setPassword = (function() {
@@ -34,6 +35,13 @@ var setPassword = (function() {
     //提交密码验证
     fn.verifyPassword = function ( tel,code,firstPwd,SecondPwd ) {
 
+        var baby_id = cookie.getItem('baby_id'),
+            data = {
+            username: tel,
+            password: firstPwd,
+            code: code,
+            baby_id: baby_id
+        };
         if( $.trim(firstPwd) == ''|| !this.isPassword(firstPwd) ){
             tooltips.show( '请输入正确格式的密码！',1000);
             return false;
@@ -48,7 +56,15 @@ var setPassword = (function() {
             url: config.API_URL.LOGIN_PATH,
             dataType: 'json',
             success: function (data) {
-                //todo
+                //todo返回错误码
+                if( !data.id ){
+
+                }else{
+                    tooltips.show('注册成功！',1000);
+                    setTimeout(function () {
+                        location.href = config.PAGE_URL.LOGIN_PATH;//todo
+                    },1000);
+                }
             },
             error: function (xhr, type) {
                 alert('Ajax error!')
@@ -58,9 +74,14 @@ var setPassword = (function() {
     };
 
     //点击创建密码
-    fn.eventSetPwdClick = function () {
+    fn.eventSetPwdClick = function ( tel,code ) {
 
-        $('')
+        var that = this;
+        $('#setPwd-btn').on('click',function setPwdClickHandle(){
+            var firtPwd = $('#first-pwd').val(),
+                SecondPwd = $('#second-pwd').val();
+            that.verifyPassword( tel,code,firtPwd,SecondPwd );
+        });
 
     };
 
